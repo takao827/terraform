@@ -12,7 +12,7 @@ resource "aws_instance" "mywebserver" {
     key_name      = aws_key_pair.auth.id
 
     # ネットワーク設定
-    subnet_id = aws_subnet.mysubnet01.id
+    subnet_id = aws_subnet.subnet_pub_a.id
     vpc_security_group_ids = [aws_security_group.mywebserver.id]
 
     # ストレージの設定

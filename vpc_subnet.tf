@@ -2,7 +2,7 @@
 # VPC サブネット 設定
 ######################################################################
 
-resource "aws_subnet" "mysubnet01" {
+resource "aws_subnet" "subnet_pub_a" {
     vpc_id = aws_vpc.vpc.id
 
     cidr_block = "10.0.0.0/24"
@@ -10,6 +10,6 @@ resource "aws_subnet" "mysubnet01" {
     availability_zone = "ap-northeast-1a"
 
     tags = {
-        Name = "mysubnet01"
+        Name = "subnet-pub-a"
     }
 }
