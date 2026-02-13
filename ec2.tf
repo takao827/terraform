@@ -2,6 +2,10 @@
 # Webサーバー設定
 ######################################################################
 
+data "template_file" "web_shell" {
+    template = file("${path.module}/web.sh.tpl")
+}
+
 resource "aws_instance" "mywebserver" {
     ami           = data.aws_ami.amzn2.id
     instance_type = "t3.micro"
@@ -16,10 +20,11 @@ resource "aws_instance" "mywebserver" {
         volume_type           = "gp2"
         volume_size           = 8
         delete_on_termination = true
-
-        tags = {
-            Name = "web-instance"
-        }
-        
     }
+
+    tags = {
+        Name = "web-instance"
+    }
+
+    user_data_base64 = base64encode(data.template_file.web_shell.rendered)
 }
