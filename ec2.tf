@@ -6,14 +6,14 @@ data "template_file" "web_shell" {
   template = file("${path.module}/web.sh.tpl")
 }
 
-resource "aws_instance" "mywebserver" {
+resource "aws_instance" "websrv" {
   ami           = data.aws_ami.amzn2.id
   instance_type = "t3.micro"
   key_name      = aws_key_pair.auth.id
 
   # ネットワーク設定
   subnet_id              = aws_subnet.subnet_pub_a.id
-  vpc_security_group_ids = [aws_security_group.mywebserver.id]
+  vpc_security_group_ids = [aws_security_group.websrv_sg.id]
 
   # ストレージの設定
   root_block_device {
