@@ -63,11 +63,15 @@ resource "aws_security_group" "dbsrv_sg" {
 }
 
 resource "aws_security_group_rule" "ingress_prv_3306" {
-  type              = "ingress"
-  from_port         = 3306
-  to_port           = 3306
-  protocol          = "tcp"
-  cidr_blocks       = [aws_subnet.subnet_prv_a.cidr_block]
+  type      = "ingress"
+  from_port = 3306
+  to_port   = 3306
+  protocol  = "tcp"
+  cidr_blocks = [
+    aws_subnet.subnet_pub_a.cidr_block,
+    aws_subnet.subnet_pub_c.cidr_block,
+    aws_subnet.subnet_prv_a.cidr_block,
+  ]
   security_group_id = aws_security_group.dbsrv_sg.id
 }
 
