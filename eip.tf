@@ -7,7 +7,7 @@ resource "aws_eip" "eip_websrv" {
 }
 
 resource "aws_eip_association" "eip_websrv_assoc" {
-  instance_id = aws_instance.websrv.id
+  instance_id = aws_instance.websrv_a.id
 
   allocation_id = aws_eip.eip_websrv.id
 }
