@@ -53,14 +53,6 @@ resource "aws_instance" "websrv_c" {
   user_data_base64 = base64encode(data.template_file.web_shell.rendered)
 }
 
-data "template_file" "db_shell" {
-  template = templatefile("${path.module}/db.sh.tpl", {
-    DB_NAME     = var.db_name
-    DB_USER     = var.db_user
-    DB_PASSWORD = var.db_password
-  })
-}
-
 resource "aws_instance" "dbsrv" {
   ami           = data.aws_ami.amzn2.id
   instance_type = "t3.micro"
@@ -80,6 +72,4 @@ resource "aws_instance" "dbsrv" {
   tags = {
     Name = "db-instance"
   }
-
-  user_data_base64 = base64encode(data.template_file.db_shell.rendered)
 }
